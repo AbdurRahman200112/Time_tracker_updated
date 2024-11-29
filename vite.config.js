@@ -6,22 +6,25 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                'resources/js/app.jsx',
-                'resources/js/pages/auth/resetPassword.jsx', 
-                'resources/css/app.css',
+                'resources/js/index.jsx', // Entry for your React app
+                'resources/css/app.css', // CSS entry point
             ],
             refresh: true,
         }),
     ],
     resolve: {
         alias: {
-            '@': path.resolve(__dirname, 'resources/js'),
+            '@': path.resolve(__dirname, 'resources/js'), // Alias for cleaner imports
         },
     },
-    server: {
-        port: 3000,
-        proxy: {
-            '/auth': 'http://localhost',
+    build: {
+        outDir: 'public/build', // Output directory
+        manifest: true,         // Generate manifest.json
+        rollupOptions: {
+            input: {
+                main: 'resources/js/index.jsx',
+                styles: 'resources/css/app.css', // Explicitly define the CSS input
+            },
         },
     },
 });

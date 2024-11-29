@@ -3,12 +3,45 @@ import axios from 'axios';
 import img from '../../../img/img-3.png';
 import img2 from '../../../img/Vector.png';
 import { useNavigate } from 'react-router-dom';
+import Loader from './Loader'; // Import the Loader component
 
 export function AddOrganization({ organization = {}, onBack, onSave }) {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false); // State for loader
 
-    // Initialize form state
-    const [formData, setFormData] = useState({
+  // Initialize form state
+  const [formData, setFormData] = useState({
+    date_signed_up: '',
+    company_name: '',
+    contact_email: '',
+    contact_phone: '',
+    monthly_plan: 'Pending',
+    manager_name: '',
+    manager_phone: '',
+    website: '',
+    address: '',
+    address2: '',
+    state: '',
+    city: '',
+    country: '',
+    zip_code: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true); // Show loader
+    try {
+      const response = await axios.post('/api/organizations', formData);
+      alert(response.data.message);
+      setFormData({
         date_signed_up: '',
         company_name: '',
         contact_email: '',
@@ -23,51 +56,26 @@ export function AddOrganization({ organization = {}, onBack, onSave }) {
         city: '',
         country: '',
         zip_code: '',
-    });
+      });
+      navigate('/organizations'); // Redirect after successful submission
+    } catch (error) {
+      console.error('Error adding organization:', error);
+      alert('Failed to add organization');
+    } finally {
+      setLoading(false); // Hide loader
+    }
+  };
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('/api/organizations', formData);
-            alert(response.data.message);
-            setFormData({
-                date_signed_up: '',
-                company_name: '',
-                contact_email: '',
-                contact_phone: '',
-                monthly_plan: 'Pending',
-                manager_name: '',
-                manager_phone: '',
-                website: '',
-                address: '',
-                address2: '',
-                state: '',
-                city: '',
-                country: '',
-                zip_code: '',
-            });
-            navigate('/organizations'); // Redirect after successful submission
-        } catch (error) {
-            console.error('Error adding organization:', error);
-            alert('Failed to add organization');
-        }
-    };
-
+  if (loading) {
+    return <Loader />; // Display loader while the form submission is processing
+  }
     return (
         <div className="p-8 rounded-xl w-full">
             <h2 className="text-xl font-semibold mb-6">Organization Information</h2>
 
-            <div className="flex gap-6">
+            <div className="flex flex-col md:flex-row gap-6">
                 {/* Organization Info Sidebar */}
-                <div className="mx-auto animate-fadeInLeft" style={{ width: '25%' }}>
+                <div className="w-full md:w-1/4 mx-auto animate-fadeInLeft">
                     <div className="bg-white p-4 rounded-lg shadow-sm mb-4">
                         <img
                             src={img}
@@ -113,8 +121,8 @@ export function AddOrganization({ organization = {}, onBack, onSave }) {
                 </div>
 
                 {/* Form Section */}
-                <div className="grid grid-cols-1 gap-4 animate-fadeInRight" style={{ width: '75%' }}>
-                    <form onSubmit={handleSubmit} className="w-full">
+                <div className="w-full md:w-3/4 animate-fadeInRight">
+                <form onSubmit={handleSubmit} className="w-full">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="mb-4">
                                 <label className="block text-gray-700">Date Signed Up</label>
@@ -325,7 +333,6 @@ export function AddOrganization({ organization = {}, onBack, onSave }) {
                         </button>
                     </form>
                 </div>
-
             </div>
         </div>
     );

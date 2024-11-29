@@ -14,7 +14,7 @@ export function VerifyCode() {
   const handleVerification = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000/api/verify-code", {
+      const response = await axios.post("/verify-code", {
         user_id: userId,
         code,
       });

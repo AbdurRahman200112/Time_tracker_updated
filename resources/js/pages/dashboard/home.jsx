@@ -3,16 +3,19 @@ import axios from 'axios';
 import { Typography } from "@material-tailwind/react";
 import { UserGroupIcon, UserPlusIcon } from "@heroicons/react/24/solid";
 import { FiTrendingUp } from 'react-icons/fi';
+import Loader from './Loader'; // Import the Loader component
 
 export function Home() {
   const [organizationCount, setOrganizationCount] = useState(0);
   const [organizations, setOrganizations] = useState([]);
+  const [loading, setLoading] = useState(true); // State for loader
 
   // Fetch organization count data
   useEffect(() => {
     axios.get('/api/organizations/count')
       .then(response => {
         setOrganizationCount(response.data.count);
+        setLoading(false); // Stop loader after data is fetched
       })
       .catch(error => console.error('Error fetching organization count:', error));
   }, []);
@@ -48,6 +51,9 @@ export function Home() {
       </div>
     </div>
   );
+  if (loading) {
+    return <Loader />; // Display loader while data is loading
+  }
 
   return (
     <div className="mt-12">
@@ -72,8 +78,6 @@ export function Home() {
           animationDelay={0.5}
         />
       </div>
-      <h1>Hello world</h1>
-
       <div style={{ width: '80%', marginLeft: '60px' }}>
         <h2 className="text-lg animate-fadeInUp font-semibold text-gray-800 mb-4" style={{ fontFamily: 'Poppins' }}>Recent</h2>
       </div>

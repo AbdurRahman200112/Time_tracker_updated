@@ -2,19 +2,20 @@ import React from 'react';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import img from '../../../img/img-3.png';
 import img2 from '../../../img/Vector.png';
+
 function OrganizationDetails({ organization, onBack }) {
   return (
     <div className="p-6 rounded-lg w-full">
       {/* Header Section with Background and Logo */}
       <div className="relative rounded-t-lg overflow-hidden w-full">
         <img
-          src={img} // Replace with the actual header image URL
+          src={img}
           alt="Header Background"
           className="w-full h-32 object-cover"
         />
         <div className="absolute inset-0 flex justify-center items-center mt-20">
           <img
-            src={img2} // Replace with the organization logo URL
+            src={img2}
             alt="Organization Logo"
             className="rounded-full border-4 border-white"
           />
@@ -22,125 +23,85 @@ function OrganizationDetails({ organization, onBack }) {
       </div>
 
       {/* Organization Title and Location */}
-      <div className="text-center mb-15 p-10 rounded-2xls" style={{ backgroundColor: 'white' }}>
-        <h1 style={{ fontFamily: 'Poppins' }} className="text-2xl font-semibold">{organization.company_name || "Solar Bright Energy"}</h1>
-        <p style={{ fontFamily: 'Poppins' }} className="text-gray-500">{organization.location || "New York, America"}</p>
+      <div
+        className="text-center mb-15 p-10 rounded-xl bg-white"
+      >
+        <h1
+          style={{ fontFamily: 'Poppins' }}
+          className="text-2xl font-semibold md:text-xl sm:text-lg"
+        >
+          {organization.company_name || 'Solar Bright Energy'}
+        </h1>
+        <p
+          style={{ fontFamily: 'Poppins' }}
+          className="text-gray-500 text-base sm:text-sm"
+        >
+          {organization.location || 'New York, America'}
+        </p>
       </div>
 
-      <div class="bg-white" style={{ backgroundColor: 'white' }}>
+      <div className="bg-white">
         {/* Information Sections */}
-        <div className="mt-6 p-6 rounded-lg shadow-md flex justify-between items-start relative w-full" style={{ backgroundColor: 'white' }}>
+        <div className="mt-6 p-6 rounded-lg shadow-md flex flex-col md:flex-row justify-between items-start relative w-full">
           {/* Edit Icon */}
           <PencilSquareIcon className="h-6 w-6 text-gray-500 absolute top-4 right-4 cursor-pointer" />
 
           {/* Basic Information */}
-          <div className="w-1/2 pr-4">
-            <div className="p-6 rounded-lg  w-full" style={{ backgroundColor: 'white' }}>
-              <h3 className="text-lg mb-4">Basic Information</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-                <div className="p-4 bg-white rounded-lg">
-                  <p style={{ fontFamily: 'Poppins' }}>Organization Name:</p>
-                </div>
-                <div className="p-4 bg-white rounded-lg">
-                  <p style={{ fontFamily: 'Poppins' }}>{organization.company_name || "Organization Name"}</p>
-                </div>
-
-                <div className="p-4 bg-white rounded-lg">
-                  <p style={{ fontFamily: 'Poppins' }}>Location:</p>
-                </div>
-                <div className="p-4 bg-white rounded-lg">
-                  <p style={{ fontFamily: 'Poppins' }}>{organization.location || "Location"}</p>
-                </div>
-
-                <div className="p-4 bg-white rounded-lg">
-                  <p style={{ fontFamily: 'Poppins' }}>Contact Information:</p>
-                </div>
-                <div className="p-4 bg-white rounded-lg">
-                  <p style={{ fontFamily: 'Poppins' }}>{organization.contact_email || "Contact Information"}</p>
-                </div>
-
-                <div className="p-4 bg-white rounded-lg">
-                  <p style={{ fontFamily: 'Poppins' }}>Organization's Website:</p>
-                </div>
-                <div className="p-4 bg-white rounded-lg">
-                  <p style={{ fontFamily: 'Poppins' }}>{organization.website || "Organization's Website"}</p>
-                </div>
+          <div className="w-full md:w-1/2 pr-4">
+            <div className="p-6 rounded-lg w-full bg-white">
+              <h3 className="text-lg mb-4 text-gray-800">Basic Information</h3>
+              <div className="grid grid-cols-1 gap-2">
+                {[
+                  { label: "Organization Name:", value: organization.company_name || "Organization Name" },
+                  { label: "Location:", value: organization.location || "Location" },
+                  { label: "Contact Information:", value: organization.contact_email || "Contact Information" },
+                  { label: "Organization's Website:", value: organization.website || "Organization's Website" },
+                ].map((item, index) => (
+                  <div key={index} className="flex flex-col sm:flex-row items-start sm:items-center justify-between py-2">
+                    <p className="text-gray-600 text-base sm:text-sm" style={{ fontFamily: 'Poppins' }}>{item.label}</p>
+                    <p className="text-gray-800 text-base sm:text-sm" style={{ fontFamily: 'Poppins' }}>{item.value}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
 
-
           {/* Employees Overview */}
-          <div className="w-1/2 pl-4">
-
-
-
-            <div className="p-6 rounded-lg  w-full" style={{ backgroundColor: 'white' }}>
-              <h3 className="text-lg mb-4">Employee Overview</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-                <div className="p-4 bg-white rounded-lg">
-                  <p style={{ fontFamily: 'Poppins' }}>Total Employees:</p>
-                </div>
-                <div className="p-4 bg-white rounded-lg">
-                  <p style={{ fontFamily: 'Poppins' }}>100</p>
-                </div>
-
-                <div className="p-4 bg-white rounded-lg">
-                  <p style={{ fontFamily: 'Poppins' }}>Active Users:</p>
-                </div>
-                <div className="p-4 bg-white rounded-lg">
-                  <p style={{ fontFamily: 'Poppins' }}>80</p>
-                </div>
-
-                <div className="p-4 bg-white rounded-lg">
-                  <p style={{ fontFamily: 'Poppins' }}>Total Hours Worked:</p>
-                </div>
-                <div className="p-4 bg-white rounded-lg">
-                  <p style={{ fontFamily: 'Poppins' }}>20 Hours</p>
-                </div>
-
-                <div className="p-4 bg-white rounded-lg">
-                  <p style={{ fontFamily: 'Poppins' }}>Overtime Hours:</p>
-                </div>
-                <div className="p-4 bg-white rounded-lg">
-                  <p style={{ fontFamily: 'Poppins' }}>10 Hours</p>
-                </div>
+          <div className="w-full md:w-1/2 pl-4 mt-6 md:mt-0">
+            <div className="p-6 rounded-lg w-full bg-white">
+              <h3 className="text-lg mb-4 text-gray-800">Employee Overview</h3>
+              <div className="grid grid-cols-1 gap-2">
+                {[
+                  { label: "Total Employees:", value: "100" },
+                  { label: "Active Users:", value: "80" },
+                  { label: "Total Hours Worked:", value: "20 Hours" },
+                  { label: "Overtime Hours:", value: "10 Hours" },
+                ].map((item, index) => (
+                  <div key={index} className="flex flex-col sm:flex-row items-start sm:items-center justify-between py-2">
+                    <p className="text-gray-600 text-base sm:text-sm" style={{ fontFamily: 'Poppins' }}>{item.label}</p>
+                    <p className="text-gray-800 text-base sm:text-sm" style={{ fontFamily: 'Poppins' }}>{item.value}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
 
         {/* Account Information */}
-        <div className="p-6 rounded-lg shadow-md w-full" style={{ backgroundColor: 'white' }}>
-          <h3 className="text-lg mb-4">Account Information</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-            <div className="p-4 bg-white rounded-lg">
-              <p style={{ fontFamily: 'Poppins' }}>Account Manager's Name:</p>
-            </div>
-            <div className="p-4 bg-white rounded-lg">
-              <p style={{ fontFamily: 'Poppins' }}>{organization.account_manager || "Account Manager's Name"}</p>
-            </div>
-
-            <div className="p-4 bg-white rounded-lg">
-              <p style={{ fontFamily: 'Poppins' }}>Account Manager's Contact:</p>
-            </div>
-            <div className="p-4 bg-white rounded-lg">
-              <p style={{ fontFamily: 'Poppins' }}>{organization.account_manager_contact || "+92 363-1192922"}</p>
-            </div>
-
-            <div className="p-4 bg-white rounded-lg">
-              <p style={{ fontFamily: 'Poppins' }}>Subscription Plan:</p>
-            </div>
-            <div className="p-4 bg-white rounded-lg">
-              <p style={{ fontFamily: 'Poppins' }}>{organization.subscription_plan || "Subscription Plan"}</p>
-            </div>
-
-            <div className="p-4 bg-white rounded-lg">
-              <p style={{ fontFamily: 'Poppins' }}>Date of Sign Up:</p>
-            </div>
-            <div className="p-4 bg-white rounded-lg">
-              <p style={{ fontFamily: 'Poppins' }}>{organization.date_signed_up || "20/11/2024"}</p>
-            </div>
+        <div className="p-6 rounded-lg shadow-md w-full bg-white mt-6">
+          <h3 className="text-lg mb-4 text-gray-800">Account Information</h3>
+          <div className="grid grid-cols-1 gap-2">
+            {[
+              { label: "Account Manager's Name:", value: organization.account_manager || "Account Manager's Name" },
+              { label: "Account Manager's Contact:", value: organization.account_manager_contact || "+92 363-1192922" },
+              { label: "Subscription Plan:", value: organization.subscription_plan || "Subscription Plan" },
+              { label: "Date of Sign Up:", value: organization.date_signed_up || "20/11/2024" },
+            ].map((item, index) => (
+              <div key={index} className="flex flex-col sm:flex-row items-start sm:items-center justify-between py-2">
+                <p className="text-gray-600 text-base sm:text-sm" style={{ fontFamily: 'Poppins' }}>{item.label}</p>
+                <p className="text-gray-800 text-base sm:text-sm" style={{ fontFamily: 'Poppins' }}>{item.value}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

@@ -70,7 +70,7 @@ export function Configurator() {
       }`}
     >
       <div className="flex items-start justify-between px-6 pt-8 pb-6">
-        <div>
+        {/* <div>
           <Typography variant="h5" color="blue-gray">
             Dashboard Configurator
           </Typography>
@@ -226,7 +226,7 @@ export function Configurator() {
               Share
             </Button>
           </div>
-        </div>
+        </div> */}
       </div>
     </aside>
   );

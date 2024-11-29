@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import Profile from "../../../img/profile.png";
 import { useNavigate } from 'react-router-dom';
+import Rectange from "../../../img/Rectangle.png";
+import { RiLogoutBoxRLine } from "react-icons/ri"; // For Logout icon
 
 import {
   Navbar,
@@ -30,8 +32,8 @@ export function DashboardNavbar() {
       <Navbar
         color={fixedNavbar ? "white" : "transparent"}
         className={`rounded-xl transition-all ${fixedNavbar
-            ? "sticky top-4 z-40 py-3 shadow-md shadow-blue-gray-500/5"
-            : "px-0 py-1"
+          ? "sticky top-4 z-40 py-3 shadow-md shadow-blue-gray-500/5"
+          : "px-0 py-1"
           }`}
         fullWidth
         blurred={fixedNavbar}
@@ -72,7 +74,7 @@ export function DashboardNavbar() {
             </IconButton>
 
             {/* Notifications Icon */}
-        <div
+            <div
               className="mr-3 flex items-center justify-center w-14 h-12 rounded-full cursor-pointer"
               style={{ backgroundColor: "#fff2d4" }}
               onClick={() => navigate("messagesCard")} // Redirect to the MessageCard page
@@ -84,24 +86,31 @@ export function DashboardNavbar() {
             </div>
 
             {/* Profile Dropdown */}
-            <Menu>
+            <Menu className="mr-5">
+              {/* Profile Icon/Menu Trigger */}
               <MenuHandler>
                 <img
-                  src={Profile}
+                  src={Profile} // Placeholder for the profile image
                   className="flex items-center justify-center w-12 h-12 rounded-full cursor-pointer"
                   style={{ backgroundColor: "#fff2d4" }}
                   alt="Profile"
                 />
               </MenuHandler>
-              <MenuList className="w-max rounded-lg shadow-lg bg-white">
-                {/* Background Image */}
+
+              {/* Menu List */}
+              <MenuList className="w-max rounded-lg shadow-lg bg-white p-0">
+                {/* Background Image Section */}
                 <div
                   className="relative w-full bg-cover bg-center rounded-t-lg"
-                  style={{ backgroundImage: "url('https://source.unsplash.com/random')", height: "100px" }}
+                  style={{
+                    backgroundImage: `url(${Rectange})`, // Corrected dynamic image usage
+                    height: "100px",
+                  }}
                 >
+                  {/* Profile Avatar */}
                   <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
                     <Avatar
-                      src="https://demos.creative-tim.com/material-dashboard/assets/img/team-2.jpg"
+                      src={Profile} // Placeholder for avatar
                       alt="User Avatar"
                       size="xl"
                       variant="circular"
@@ -112,23 +121,33 @@ export function DashboardNavbar() {
 
                 {/* Menu Items */}
                 <div className="mt-16 px-4">
+                  {/* Profile Option */}
                   <MenuItem className="flex items-center gap-4 py-3 hover:bg-gray-100 rounded-lg">
                     <MdPersonOutline className="h-6 w-6 text-blue-gray-800" />
-                    <Typography variant="small" className="text-blue-gray-800 font-medium" style={{fontFamily: 'Poppins'}}>
+                    <Typography
+                      variant="small"
+                      className="text-blue-gray-800 font-medium"
+                      style={{ fontFamily: "Poppins" }}
+                    >
                       Profile
                     </Typography>
                   </MenuItem>
+
+                  {/* Change Password Option */}
                   <MenuItem className="flex items-center gap-4 py-3 hover:bg-gray-100 rounded-lg">
                     <MdLockOutline className="h-6 w-6 text-blue-gray-800" />
-                    <Typography variant="small" className="text-blue-gray-800 font-medium" style={{fontFamily: 'Poppins'}}>
+                    <Typography
+                      variant="small"
+                      className="text-blue-gray-800 font-medium"
+                      style={{ fontFamily: "Poppins" }}
+                    >
                       Change Password
                     </Typography>
                   </MenuItem>
-                  {/* <div
-                    onClick={() => setActiveComponent("SignIn")}
-                    className="flex items-center gap-4 py-3 ml-4 hover:bg-gray-100 rounded-lg cursor-pointer"
-                  >
-                    <MdLogout className="h-6 w-6 text-blue-gray-800" />
+
+                  {/* Logout Option */}
+                  <MenuItem className="flex items-center gap-4 py-3 hover:bg-gray-100 rounded-lg">
+                    <RiLogoutBoxRLine className="h-6 w-6 text-blue-gray-800" />
                     <Typography
                       variant="small"
                       className="text-blue-gray-800 font-medium"
@@ -136,10 +155,9 @@ export function DashboardNavbar() {
                     >
                       Logout
                     </Typography>
-                  </div> */}
+                  </MenuItem>
                 </div>
               </MenuList>
-
             </Menu>
           </div>
         </div>

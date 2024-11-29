@@ -17,18 +17,25 @@ return [
 
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
-    'allowed_methods' => ['*'],
+    // Allow specific HTTP methods
+    'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
 
-    'allowed_origins' => ['*'],
+    // Replace '*' with your domain name
+    'allowed_origins' => ['https://cyberix.io', 'https://www.cyberix.io'],
 
+    // If you need to match a pattern, use allowed_origins_patterns
     'allowed_origins_patterns' => [],
 
-    'allowed_headers' => ['*'],
+    // Define the headers you want to allow
+    'allowed_headers' => ['Content-Type', 'X-Requested-With', 'Authorization'],
 
+    // Specify any headers that should be exposed to the browser
     'exposed_headers' => [],
 
-    'max_age' => 0,
+    // Set max age for preflight requests
+    'max_age' => 3600,
 
+    // Set to true if cookies or authentication is required
     'supports_credentials' => false,
 
 ];

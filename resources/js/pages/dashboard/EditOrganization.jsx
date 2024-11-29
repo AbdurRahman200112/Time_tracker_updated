@@ -21,12 +21,10 @@ export default function EditOrganization({ organization, onBack, onSave }) {
     date_signed_up: organization.date_signed_up || '',
   });
 
-  const [organizations, setOrganizations] = useState([]);
-
   useEffect(() => {
     axios
       .get('/api/organizations')
-      .then((response) => setOrganizations(response.data))
+      .then((response) => console.log('Organizations fetched:', response.data))
       .catch((error) => console.error('Error fetching organizations:', error));
   }, []);
 
@@ -54,8 +52,9 @@ export default function EditOrganization({ organization, onBack, onSave }) {
     <div className="p-8 rounded-xl w-full">
       <h2 className="text-xl font-semibold mb-6">Organization Information</h2>
 
-      <div className="flex gap-6">
-        <div className="mx-auto animate-fadeInLeft" style={{ width: '25%' }}>
+      <div className="flex flex-col md:flex-row gap-6">
+        {/* Sidebar */}
+        <div className="w-full md:w-1/4 mx-auto animate-fadeInLeft">
           <div className="bg-white p-4 rounded-lg shadow-sm mb-4">
             <img
               src={img}
@@ -100,37 +99,40 @@ export default function EditOrganization({ organization, onBack, onSave }) {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 animate-fadeInRight" style={{ width: '75%' }}>
-          {[ 
-            { name: 'company_name', placeholder: "Organization's Name" },
-            { name: 'contact_email', placeholder: 'Contact Email' },
-            { name: 'contact_phone', placeholder: 'Contact Phone' },
-            { name: 'monthly_plan', placeholder: 'Monthly Plan' },
-            { name: 'manager_name', placeholder: "Manager's Name" },
-            { name: 'manager_phone', placeholder: "Manager's Phone Number" },
-            { name: 'website', placeholder: "Organization's Website" },
-            { name: 'address', placeholder: 'Address' },
-            { name: 'address2', placeholder: 'Address 2' },
-            { name: 'state', placeholder: 'State' },
-            { name: 'city', placeholder: 'City' },
-            { name: 'country', placeholder: 'Country' },
-            { name: 'zip_code', placeholder: 'Zip Code' },
-            { name: 'date_signed_up', placeholder: 'Date Signed Up' },
-          ].map(({ name, placeholder }) => (
-            <input
-              key={name}
-              name={name}
-              value={formData[name]}
-              onChange={handleChange}
-              placeholder={placeholder}
-              className="border border-gray-300 p-3 mt-2 rounded-lg"
-              style={{
-                backgroundColor: '#f4f4f4',
-                borderRadius: '50px',
-                padding: '20px',
-              }}
-            />
-          ))}
+        {/* Form Section */}
+        <div className="w-full md:w-3/4 animate-fadeInRight">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              { name: 'company_name', placeholder: "Organization's Name" },
+              { name: 'contact_email', placeholder: 'Contact Email' },
+              { name: 'contact_phone', placeholder: 'Contact Phone' },
+              { name: 'monthly_plan', placeholder: 'Monthly Plan' },
+              { name: 'manager_name', placeholder: "Manager's Name" },
+              { name: 'manager_phone', placeholder: "Manager's Phone Number" },
+              { name: 'website', placeholder: "Organization's Website" },
+              { name: 'address', placeholder: 'Address' },
+              { name: 'address2', placeholder: 'Address 2' },
+              { name: 'state', placeholder: 'State' },
+              { name: 'city', placeholder: 'City' },
+              { name: 'country', placeholder: 'Country' },
+              { name: 'zip_code', placeholder: 'Zip Code' },
+              { name: 'date_signed_up', placeholder: 'Date Signed Up' },
+            ].map(({ name, placeholder }) => (
+              <input
+                key={name}
+                name={name}
+                value={formData[name]}
+                onChange={handleChange}
+                placeholder={placeholder}
+                className="border border-gray-300 p-3 mt-2 rounded-lg w-full"
+                style={{
+                  backgroundColor: '#f4f4f4',
+                  borderRadius: '50px',
+                  padding: '20px',
+                }}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
